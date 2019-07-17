@@ -55,4 +55,25 @@ describe('app routes', () => {
         });
       });
   });
+  it('PUT updated person', async() => {
+    const people = await People.create({ 
+      name: 'leigh-ann',
+      email: 'la@fake.com'
+    });
+
+    return request(app)
+      .put(`/api/v1/peoples/${people._id}`)
+      .send({
+        name: 'lili',
+        email: 'lili@fake.com'
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          name: 'lili',
+          email: 'lili@fake.com',
+          __v: 0
+        });
+      });
+  });
 });
