@@ -76,4 +76,21 @@ describe('app routes', () => {
         });
       });
   });
+  it('DELETES a person', async() => {
+    const people = await People.create({ 
+      name: 'leigh-ann',
+      email: 'la@fake.com'
+    });
+
+    return request(app)
+      .delete(`/api/v1/peoples/${people._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          name: 'leigh-ann',
+          email: 'la@fake.com',
+          __v: 0
+        });
+      });
+  });
 });
