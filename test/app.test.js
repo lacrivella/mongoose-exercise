@@ -41,4 +41,18 @@ describe('app routes', () => {
         expect(res.body).toEqual([peopleJSON]);
       });
   });
+
+  it('GET by id', async() => {
+    const people = await People.create({ name: 'leigh-ann', email: 'la@fake.com' });
+    return request(app)
+      .get(`/api/v1/peoples/${people._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          name: 'leigh-ann',
+          email: 'la@fake.com',
+          __v: 0
+        });
+      });
+  });
 });
